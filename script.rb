@@ -1,13 +1,13 @@
 class Game
-  @@board = {}
-
   def initialize(player1, player2)
     @player1 = ' ' << player1 << ' '
     @player2 = ' ' << player2 << ' '
+    @board = {}
+    clear_board()
   end
 
   def clear_board
-    @@board = {
+    @board = {
       a: ['   ', '   ', '   '],
       b: ['   ', '   ', '   '],
       c: ['   ', '   ', '   ']
@@ -22,7 +22,12 @@ class Game
     puts '  -----------'
     puts "C #{@@board[:c][0]}|#{@@board[:c][1]}|#{@@board[:c][2]}"
   end
+
+  def player_move(row, column, player)
+    @board[row.to_sym][column - 1] = player
+  end
 end
 
-board1 = Game.new
+board1 = Game.new('X', 'O')
+board1.clear_board
 board1.display_board
