@@ -2,6 +2,7 @@ class Game
   def initialize(player1, player2)
     @player1 = ' ' << player1 << ' '
     @player2 = ' ' << player2 << ' '
+    @game_won = false
     @board = {}
     clear_board()
   end
@@ -28,28 +29,27 @@ class Game
   end
 
   def game_won?(player)
-    game_won = false
-    @board.each { |value| game_won = true if value.all?(player) }
+    @board.each { |value| @game_won = true if value.all?(player) }
     for i in 0..2 do
       column = []
       @board.each_key { |key| column.push(@board[key][i]) }
-      game_won = true if column.all?(player)
+      @game_won = true if column.all?(player)
     end
     @board.each_key do |key|
       diagonal = []
       for i in 0..2 do
         diagonal.push(@board[key][i])
       end
-      game_won = true if diagonal.all?(player)
+      @game_won = true if diagonal.all?(player)
       alt_diagonal = []
       j = 2
       while j >= 0
         alt_diagonal.push(@board[key][j])
         j -= 1
       end
-      game_won = true if alt_diagonal.all?(player)
+      @game_won = true if alt_diagonal.all?(player)
     end
-    display_win(player) if game_won == true
+    display_win(player) if @game_won == true
   end
 
   def display_win(player)
