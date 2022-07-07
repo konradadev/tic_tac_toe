@@ -25,8 +25,7 @@ class Game
   end
 
   def player_move(row, column, player)
-    fixed_column = column - 1
-    @board[row.to_sym][fixed_column] = player
+    @board[row.to_sym][column] = player
   end
 
   def check_win_horizontal(player)
@@ -92,16 +91,25 @@ class Game
       puts 'Wrong input! Please choose one of the following: 1, 2 or 3'
       move_column = gets.to_i
     end
+    move_column -= 1
     move_column
+  end
+
+  def move_possible?(row, column)
+    @board[row.to_sym][column] == '   '
   end
 
   def gameplay_loop
     i = 0
     while @game_won == false && i < 9
+      move_possible = false
       current_player = i.even? ? @player1 : @player2
-      puts "Now moving: #{current_player} iteration #{i}"
-      move_row = move_row_cop()
-      move_column = move_column_cop()
+      while move_possible == false
+        puts "Now moving: #{current_player} iteration #{i}"
+        move_row = move_row_cop()
+        move_column = move_column_cop()
+        move_possible?(move_row, move_column) ? move_possible = true : (puts 'Move not possible, try again')
+      end
       player_move(move_row, move_column, current_player)
       check_win_conditions(current_player)
       @game_won == true ? display_win(current_player) : display_board()
