@@ -121,7 +121,30 @@ class Game
   end
 end
 
-board1 = Game.new('X', 'O')
-board1.clear_board
-board1.display_board
-board1.gameplay_loop
+replay = true
+
+def ask_players
+  puts 'Do you want to play again?'
+  puts '1. Yes'
+  puts '2. No'
+end
+
+def play_again?
+  ask_players()
+  answer = gets.to_i
+  while [1, 2].any?(answer) == false
+    puts 'Wrong input!'
+    ask_players()
+    answer = gets.to_i
+  end
+  answer == 1
+end
+
+while replay
+  board = Game.new('X', 'O')
+  board.display_board
+  board.gameplay_loop
+  replay = play_again?()
+end
+
+puts 'Thanks for playing!'
