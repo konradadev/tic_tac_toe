@@ -107,7 +107,7 @@ class Game
       move_possible = false
       current_player = i.even? ? @player1 : @player2
       while move_possible == false
-        puts "Now moving: #{current_player} iteration #{i}"
+        puts "Now moving: #{current_player}"
         move_row = move_row_cop()
         move_column = move_column_cop()
         move_possible?(move_row, move_column) ? move_possible = true : (puts 'Move not possible, try again')
