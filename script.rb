@@ -115,6 +115,7 @@ class Game
       @game_won == true ? display_win(current_player) : display_board()
       i += 1
     end
+    puts "It's a Tie!" if @game_won == false
   end
 end
 
