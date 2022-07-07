@@ -77,6 +77,7 @@ class Game
     puts 'Choose from row A to C'
     move_row = gets.downcase.chomp
     while possible_rows.any?(move_row) == false
+      display_board()
       puts 'Wrong input! Please choose one of the following: A, B or C'
       move_row = gets.downcase.chomp
     end
@@ -88,6 +89,7 @@ class Game
     puts 'Choose from column 1 to 3'
     move_column = gets.to_i
     while  possible_columns.any?(move_column) == false
+      display_board()
       puts 'Wrong input! Please choose one of the following: 1, 2 or 3'
       move_column = gets.to_i
     end
