@@ -110,7 +110,12 @@ class Game
         puts "Now moving: #{current_player}"
         move_row = move_row_cop()
         move_column = move_column_cop()
-        move_possible?(move_row, move_column) ? move_possible = true : (puts 'Move not possible, try again')
+        if move_possible?(move_row, move_column)
+          move_possible = true
+        else
+          puts 'Move not possible, try again'
+          display_board()
+        end
       end
       player_move(move_row, move_column, current_player)
       check_win_conditions(current_player)
