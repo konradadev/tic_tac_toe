@@ -29,7 +29,7 @@ class Game
   end
 
   def check_win_horizontal(player)
-    @board.each { |value| @game_won = true if value.all?(player) }
+    @board.each_key { |key| @game_won = true if @board[key].all?(player) }
   end
 
   def check_win_vertical(player)
