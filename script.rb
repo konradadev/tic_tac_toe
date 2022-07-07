@@ -63,7 +63,7 @@ class Game
     end
   end
 
-  def game_won?(player)
+  def check_win_conditions(player)
     check_win_horizontal(player)
     check_win_vertical(player)
     check_win_diagonal(player)
@@ -85,7 +85,7 @@ class Game
       puts 'Choose from column 1 to 3'
       move_column = gets.to_i
       player_move(move_row, move_column, current_player)
-      game_won?(current_player)
+      check_win_conditions(current_player)
       @game_won == true ? display_win(current_player) : display_board()
       i += 1
     end
