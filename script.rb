@@ -25,7 +25,8 @@ class Game
   end
 
   def player_move(row, column, player)
-    @board[row.to_sym][column - 1] = player
+    fixed_column = column - 1
+    @board[row.to_sym][fixed_column] = player
   end
 
   def game_won?(player)
@@ -49,15 +50,31 @@ class Game
       end
       @game_won = true if alt_diagonal.all?(player)
     end
-    display_win(player) if @game_won == true
   end
 
   def display_win(player)
     display_board()
     puts "Player #{player} won"
   end
+
+  def gameplay_loop
+    i = 0
+    while @game_won == false && i < 9
+      current_player = i.even? ? @player1 : @player2
+      puts "Now moving: #{current_player} iteration #{i}"
+      puts 'Choose from row A to C'
+      move_row = gets.chomp
+      puts 'Choose from column 1 to 3'
+      move_column = gets.to_i
+      player_move(move_row, move_column, current_player)
+      game_won?(current_player)
+      @game_won == true ? display_win(current_player) : display_board()
+      i += 1
+    end
+  end
 end
 
 board1 = Game.new('X', 'O')
 board1.clear_board
 board1.display_board
+board1.gameplay_loop
