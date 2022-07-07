@@ -29,27 +29,45 @@ class Game
     @board[row.to_sym][fixed_column] = player
   end
 
-  def game_won?(player)
+  def check_win_horizontal(player)
     @board.each { |value| @game_won = true if value.all?(player) }
+  end
+
+  def check_win_vertical(player)
     for i in 0..2 do
       column = []
       @board.each_key { |key| column.push(@board[key][i]) }
       @game_won = true if column.all?(player)
     end
+  end
+
+  def check_win_diagonal(player)
     @board.each_key do |key|
       diagonal = []
       for i in 0..2 do
         diagonal.push(@board[key][i])
       end
       @game_won = true if diagonal.all?(player)
-      alt_diagonal = []
+    end
+  end
+
+  def check_win_diagonal_alt(player)
+    @board.each_key do |key|
+      diagonal_alt = []
       j = 2
       while j >= 0
-        alt_diagonal.push(@board[key][j])
+        diagonal_alt.push(@board[key][j])
         j -= 1
       end
-      @game_won = true if alt_diagonal.all?(player)
+      @game_won = true if diagonal_alt.all?(player)
     end
+  end
+
+  def game_won?(player)
+    check_win_horizontal(player)
+    check_win_vertical(player)
+    check_win_diagonal(player)
+    check_win_diagonal(player)
   end
 
   def display_win(player)
