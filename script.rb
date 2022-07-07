@@ -42,13 +42,13 @@ class Game
   end
 
   def check_win_diagonal(player)
+    diagonal = []
+    i = 0
     @board.each_key do |key|
-      diagonal = []
-      for i in 0..2 do
-        diagonal.push(@board[key][i])
-      end
-      @game_won = true if diagonal.all?(player)
+      diagonal.push(@board[key][i])
+      i += 1
     end
+    @game_won = true if diagonal.all?(player)
   end
 
   def check_win_diagonal_alt(player)
