@@ -73,15 +73,35 @@ class Game
     puts "Player #{player} won"
   end
 
+  def move_row_cop
+    possible_rows = %w[a b c]
+    puts 'Choose from row A to C'
+    move_row = gets.downcase.chomp
+    while possible_rows.any?(move_row) == false
+      puts 'Wrong input! Please choose one of the following: A, B or C'
+      move_row = gets.downcase.chomp
+    end
+    move_row
+  end
+
+  def move_column_cop
+    possible_columns = [1, 2, 3]
+    puts 'Choose from column 1 to 3'
+    move_column = gets.to_i
+    while  possible_columns.any?(move_column) == false
+      puts 'Wrong input! Please choose one of the following: 1, 2 or 3'
+      move_column = gets.to_i
+    end
+    move_column
+  end
+
   def gameplay_loop
     i = 0
     while @game_won == false && i < 9
       current_player = i.even? ? @player1 : @player2
       puts "Now moving: #{current_player} iteration #{i}"
-      puts 'Choose from row A to C'
-      move_row = gets.chomp
-      puts 'Choose from column 1 to 3'
-      move_column = gets.to_i
+      move_row = move_row_cop()
+      move_column = move_column_cop()
       player_move(move_row, move_column, current_player)
       check_win_conditions(current_player)
       @game_won == true ? display_win(current_player) : display_board()
